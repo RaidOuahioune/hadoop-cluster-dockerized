@@ -1,0 +1,43 @@
+<configuration>
+  <property>
+    <name>yarn.scheduler.capacity.root.queues</name>
+    <value>default</value>
+    <description>The queues at the root level</description>
+  </property>
+  
+  <property>
+    <name>yarn.scheduler.capacity.root.default.capacity</name>
+    <value>100</value>
+    <description>Default queue capacity</description>
+  </property>
+  
+  <property>
+    <name>yarn.scheduler.capacity.root.default.user-limit-factor</name>
+    <value>1.0</value>
+    <description>Default queue user limit factor</description>
+  </property>
+  
+  <property>
+    <name>yarn.scheduler.capacity.root.default.maximum-capacity</name>
+    <value>100</value>
+    <description>Maximum capacity of default queue</description>
+  </property>
+  
+  <property>
+    <name>yarn.scheduler.capacity.root.default.state</name>
+    <value>RUNNING</value>
+    <description>Default queue state</description>
+  </property>
+  
+  <property>
+    <name>yarn.scheduler.capacity.root.default.acl_submit_applications</name>
+    <value>*</value>
+    <description>ACL for submitting applications</description>
+  </property>
+  
+  <property>
+    <name>yarn.scheduler.capacity.root.default.acl_administer_queue</name>
+    <value>*</value>
+    <description>ACL for administering the queue</description>
+  </property>
+</configuration>
