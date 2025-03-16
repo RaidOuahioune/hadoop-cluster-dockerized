@@ -5,7 +5,7 @@ services:
     image: apache/hadoop:3.4.1
     hostname: namenode
     container_name: namenode
-    user: root # Run as root to allow chmod
+    user: root
     ports:
       - "9870:9870" # HDFS Web UI
       - "8020:8020" # HDFS RPC
@@ -18,7 +18,7 @@ services:
       [
         "/bin/bash",
         "-c",
-        "mkdir -p /hadoop/dfs/name && chmod -R 777 /hadoop/dfs/name && /opt/hadoop/bin/hdfs namenode -format -force && /opt/hadoop/bin/hdfs namenode",
+        "if [ ! -d /hadoop/dfs/name/current ]; then /opt/hadoop/bin/hdfs namenode -format -force; fi && /opt/hadoop/bin/hdfs namenode",
       ]
     healthcheck:
       test: ["CMD", "curl", "-f", "http://namenode:9870"]
@@ -30,7 +30,7 @@ services:
     image: apache/hadoop:3.4.1
     hostname: datanode1
     container_name: datanode1
-    user: root # Run as root
+    user: root
     depends_on:
       - namenode
     ports:
@@ -51,11 +51,11 @@ services:
     image: apache/hadoop:3.4.1
     hostname: datanode2
     container_name: datanode2
-    user: root # Run as root
+    user: root
     depends_on:
       - namenode
     ports:
-      - "9865:9864" # DataNode Web UI (mapped to different port)
+      - "9865:9864"
     volumes:
       - hadoop_datanode2:/hadoop/dfs/data
       - ./hadoop-config/conf:/opt/hadoop/etc/hadoop
@@ -75,8 +75,8 @@ services:
     depends_on:
       - namenode
     ports:
-      - "8088:8088" # YARN Web UI
-      - "8032:8032" # YARN RPC
+      - "8088:8088"
+      - "8032:8032"
     environment:
       - HADOOP_CONF_DIR=/opt/hadoop/etc/hadoop
     volumes:
@@ -90,7 +90,7 @@ services:
     depends_on:
       - resourcemanager
     ports:
-      - "8042:8042" # NodeManager Web UI
+      - "8042:8042"
     environment:
       - HADOOP_CONF_DIR=/opt/hadoop/etc/hadoop
     volumes:
